@@ -40,7 +40,7 @@ use serde;
 
 /// Bitvector
 #[derive(Debug)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Box<dyn Serialize>, Box<dyn Deserialize>))]
 pub struct BitVector {
     bits: usize,
     #[cfg_attr(
