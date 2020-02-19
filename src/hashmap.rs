@@ -7,7 +7,7 @@ use Mphf;
 /// A HashMap data structure where the mapping between keys and values is encoded in a Mphf. This lets us store the keys and values in dense
 /// arrays, with ~3 bits/item overhead in the Mphf.
 #[derive(Debug)]
-#[cfg_attr(feature = "serde", derive( Box<dyn Serialize>, Box<dyn Deserialize>))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct BoomHashMap<K: Hash, D> {
     mphf: Mphf<K>,
     keys: Vec<K>,
@@ -151,7 +151,7 @@ impl<'a, K: Hash, D> IntoIterator for &'a BoomHashMap<K, D> {
 /// This lets us store the keys and values in dense
 /// arrays, with ~3 bits/item overhead in the Mphf.
 #[derive(Debug)]
-#[cfg_attr(feature = "serde", derive( Box<dyn Serialize>, Box<dyn Deserialize>))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct BoomHashMap2<K: Hash, D1, D2> {
     mphf: Mphf<K>,
     keys: Vec<K>,
@@ -305,7 +305,7 @@ where
 /// A HashMap data structure where the mapping between keys and values is encoded in a Mphf. *Keys are not stored* - this can greatly improve the memory consumption,
 /// but can only be used if you can guarantee that you will only query for keys that were in the original set.  Querying for a new key will return a random value, silently.
 #[derive(Debug)]
-#[cfg_attr(feature = "serde", derive( Box<dyn Serialize>, Box<dyn Deserialize>))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct NoKeyBoomHashMap<K, D1> {
     pub mphf: Mphf<K>,
     pub values: Vec<D1>,
@@ -362,7 +362,7 @@ where
 /// A HashMap data structure where the mapping between keys and values is encoded in a Mphf. *Keys are not stored* - this can greatly improve the memory consumption,
 /// but can only be used if you can guarantee that you will only query for keys that were in the original set.  Querying for a new key will return a random value, silently.
 #[derive(Debug)]
-#[cfg_attr(feature = "serde", derive( Box<dyn Serialize>, Box<dyn Deserialize>))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct NoKeyBoomHashMap2<K, D1, D2> {
     pub mphf: Mphf<K>,
     pub values: Vec<D1>,

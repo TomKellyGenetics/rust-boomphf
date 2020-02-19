@@ -12,7 +12,9 @@ keywords = ["hashing", "minimal", "perfect"]
 
 [dependencies]
 fnv = ">=1.0"
-serde = { version=">=1.0", optional = true, features=["derive"] }
+serde = { version="1.0", optional = true, features=["derive"] }
+serde_derive = "*"
+serde_json = "*"
 rayon = ">=1.0"
 crossbeam-utils = "0.6.5"
 wyhash = "0.3.0"

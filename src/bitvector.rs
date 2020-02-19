@@ -38,16 +38,17 @@ use std::sync::atomic::{AtomicUsize, Ordering};
 #[macro_use]
 use serde;
 
+
 /// Bitvector
 #[derive(Debug)]
-#[cfg_attr(feature = "serde", derive(Box<dyn Serialize>, Box<dyn Deserialize>))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct BitVector {
     bits: usize,
     #[cfg_attr(
         feature = "serde",
         serde(serialize_with = "ser_atomic_vec", deserialize_with = "de_atomic_vec")
     )]
-    vector: Box<[AtomicUsize]>,
+    vector: std::vec::Vec<AtomicUsize>,
 }
 
 // Custom serializer
@@ -138,7 +139,7 @@ impl BitVector {
 
         BitVector {
             bits: bits,
-            vector: v.into_boxed_slice(),
+            vector: v,
         }
     }
 
@@ -157,7 +158,7 @@ impl BitVector {
         bvec.push(to_au(usize::max_value() >> (64 - offset)));
         BitVector {
             bits: bits,
-            vector: bvec.into_boxed_slice(),
+            vector: bvec,
         }
     }
 
