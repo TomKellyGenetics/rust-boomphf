@@ -35,6 +35,7 @@ use std::fmt;
 use std::sync::atomic::{AtomicUsize, Ordering};
 
 #[cfg(feature = "serde")]
+#[macro_use]
 use serde;
 
 
@@ -106,13 +107,13 @@ impl core::clone::Clone for BitVector {
 
 impl fmt::Display for BitVector {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        try!(write!(f, "["));
-        try!(write!(
+        write!(f, "[")?;
+        write!(
             f,
             "{}",
             self.iter()
                 .fold(String::new(), |x0, x| x0 + &format!("{}, ", x))
-        ));
+        )?;
         write!(f, "]")
     }
 }
